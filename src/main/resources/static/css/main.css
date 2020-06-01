@@ -1,0 +1,27 @@
+
+.login-container {
+    background-color: #eaebec;
+    margin-top: 10%;
+}
+
+.introduction {
+    width: 40%; 
+    text-align: center;
+    margin: auto;
+}
+
+.welcome-text {
+    margin-top: 20px;
+}
+
+.login-box {
+    height: 40%;
+    width: 40%;
+    margin: auto;
+    border: 1px solid #989898;
+    box-shadow: 2px 2px 2px #4f4f4f;
+}
+
+.login-box-content {
+    margin: 20px;
+}

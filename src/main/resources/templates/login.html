@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <link th:href="@{/css/main.css}" rel="stylesheet" />
+    </head>
+    <body class="container login-container">
+
+        <div class="introduction">
+            <h1>Logo here</h1>
+            <h1 class="welcome-text">Tervetuloa!</h1>
+        </div>
+        
+        <div class="login-box rounded">
+            
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                    <a class="nav-item nav-link" id="nav-register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                </div>
+            </nav>
+            
+            
+            <div class="tab-content" id="nav-tabContent">
+                
+                <div id="register" class="tab-pane login-box-content" role="tabpanel" aria-labelledby="nav-register-tab">
+                    <h2 class="logreg-text">Rekisteröidy</h2>
+                    
+                    
+                    
+                    <form class="logreg-form" th:action="@{/register}" th:object="${account}" method="POST">
+                        <div class="alert alert-danger" th:if="${(param.error != null) and (param.error[0] == 'true')}">
+                            <span th:if="${#fields.hasErrors('all')}">Tarkista tiedot</span>
+                            <span th:if="${passwordsDontMatch!=null}">Salasana eivät täsmää</span>
+                            <span th:if="${usernameInUse!=null}">Käyttäjänimi on jo käytössä</span>
+                            <span th:if="${handleInUse!=null}">Lempinimi on jo käytössä</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountName">Nimi</label>
+                            <input type="text" class="form-control" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? is-invalid" />
+                            <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Virheellinen nimi</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountUsername">Käyttäjänimi</label>
+                            <input type="text" name="username" class="form-control" th:classappend="${#fields.hasErrors('username') or usernameInUse!=null} ? is-invalid" id="accountUsername" th:field="*{username}" />
+                            <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Virheellinen käyttäjänimi</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountHandle">Lempinimi</label>
+                            <input type="text" name="handle" class="form-control" th:classappend="${#fields.hasErrors('handle') or handleInUse!=null} ? is-invalid" id="accountHandle" th:field="*{handle}" />
+                            <div class="text-danger" th:if="${#fields.hasErrors('handle')}" th:errors="*{handle}">Virheellinen lempinimi</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountPassword">Salasana</label>
+                            <input type="password" name="password" class="form-control" th:classappend="${#fields.hasErrors('password')} ? is-invalid" id="accountPassword" th:field="*{password}" />
+                            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Virheellinen salasana</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountPasswordAgain">Salasana uudelleen</label>
+                            <input type="password" name="passwordAgain" class="form-control" th:classappend="${passwordsDontMatch!=null} ? is-invalid" id="accountPasswordAgain" />
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Rekisteröidy</button>
+                    </form>
+                </div>
+
+                <div id="login" class="tab-pane show active login-box-content" role="tabpanel" aria-labelledby="nav-login-tab">
+                    <h2 class="logreg-text">Kirjaudu sisään</h2>
+
+                    <form class="logreg-form" th:action="@{/login}" method="POST">
+                        <div class="alert alert-danger" th:if="${(param.error != null) and (param.error[0] == 'true')}">Väärä käyttäjänimi tai salasana</div>
+                        <div class="form-group">
+                            <label for="accountUsername">Käyttäjänimi</label>
+                            <input type="text" name="username" class="form-control" th:classappend="${(param.error != null) and (param.error[0] == 'true')} ? is-invalid" id="accountUsername" />
+                        </div>
+                        <div class="form-group">
+                            <label for="accountPassword">Salasana</label>
+                            <input type="password" name="password" class="form-control" th:classappend="${(param.error != null) and (param.error[0] == 'true')} ? is-invalid" id="accountPassword" />
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script type="text/javascript" th:src="@{/js/login.js}"></script>
+    </body>
+</html>
