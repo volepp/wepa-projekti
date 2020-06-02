@@ -29,4 +29,16 @@ public class AccountService {
         return 1;
     }
     
+    public Account getAccountByHandle(String handle) {
+        return accountRepository.findByHandle(handle);
+    }
+    
+    public Account getAccountByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+    
+    public Account getAccountById(Long id) {
+        return accountRepository.findById(id).orElse(null);
+    }
+    
 }

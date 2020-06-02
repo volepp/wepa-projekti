@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sisäänlinkitetty</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <link th:href="@{/css/main.css}" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <header th:replace="fragments/layout :: header"></header>
+
+        <div class="container">
+            
+            <div class="row profile-introduction">
+                <img class="col-3" th:src="@{/images/profile_pic_placeholder.png}"/>
+                
+                <div class="col-7 profile-names">
+                    <h1 class="profile-name" th:text="${account.name}">Name</h1>
+                    <h3 class="profile-username" th:text="${account.username}">Username</h3>
+                    
+                    <form th:if="${own_profile == false}" class="add-connection-form" th:action="@{/connections/add/}+${account.handle}" method="POST">
+                        <button th:if="${connection_request_sent == false}" type="submit" class="btn btn-info profile-add-connection">Lisää yhteys</button>
+                        <button th:if="${connection_request_sent == true}" class="btn btn-secondary profile-add-connection" disabled>Yhteyspyyntö lähetetty</button>
+
+                    </form>
+                </div>
+                
+            </div>
+            
+        </div>
+
+    </body>
+</html>

@@ -1,6 +1,10 @@
 package projekti.model;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -27,5 +31,8 @@ public class Account extends AbstractPersistable<Long> {
     @NotEmpty(message="Salasana ei voi olla tyhjä")
     @Size(min=5, message="Salasanassa tulee olla vähintään {min} merkkiä")
     private String password;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Account> connections;
     
 }

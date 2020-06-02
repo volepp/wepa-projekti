@@ -4,17 +4,15 @@
     <head>
         <meta charset="UTF-8" />
         <title>Layout</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
     </head>
     <body>
 
-        <header th:fragment="login-header">
+        <header th:fragment="header">
             
-            <div class="row">
+            <div class="row header-div">
                 <h1 class="col-3">Sisäänlinkitetty</h1>
                 
-                <form class="col-6">
+                <form class="col-6 header-search" th:action="@{/search}" method="GET">
                     <input type="text" name="search" />
                     <input type="submit" value="Hae"/>
                 </form>

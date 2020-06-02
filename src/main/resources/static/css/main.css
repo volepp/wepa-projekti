@@ -25,3 +25,41 @@
 .login-box-content {
     margin: 20px;
 }
+
+.header-div {
+    background-color: #2867b2;
+    text-align: center;
+}
+
+.header-search {
+    margin: auto;
+}
+
+.container {
+    width: 60%;
+    margin-top: 30px;
+}
+
+.profile-username {
+    color: #777;
+}
+
+.profile-add-connection {
+    margin-top: 10px;
+}
+
+.accept-connection {
+    text-align: center;
+}
+
+.connection-add-buttons {
+    justify-content: center;
+}
+
+.connection-add-button {
+    margin: 10px;
+}
+
+.connection-list-link {
+    background-color: #eee;
+}

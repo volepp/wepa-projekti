@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sisäänlinkitetty</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <link th:href="@{/css/main.css}" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <header th:replace="fragments/layout :: header"></header>
+
+        <div class="container">
+            
+            <div th:if="${own_profile == true}" class="connection-requests">
+                
+                <h1 class="connection-request-text">Yhteyspyynnöt</h1>
+                <ul class="connection-list">
+                    <li class="row connection-listing" th:each="connection_request : ${connectionRequests}">
+                        <a class="connection-list-link col-9" th:href="@{/account/}+${connection_request.handle}">
+                            <div class="connection-request-info">
+                                <h3 th:text="${connection_request.name}"></h3>
+                            </div>
+                        </a>
+                        <div class="col-3 form-group accept-connection">
+                            <span class="connection-add-text">Hyväksy?</span>
+                            <div class="row connection-add-buttons">
+                                <form th:action="@{/connections/accept/}+${connection_request.handle}" method="POST">
+                                    <button type="submit" class="btn btn-success connection-add-button" >&#10004;</button>
+                                </form>
+                                <form th:action="@{/connections/reject/}+${connection_request.handle}" method="POST">
+                                    <button type="submit" class="btn btn-danger connection-add-button" >&#215;</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+            
+            <div class="connections">
+                <h1 class="connections-text">Yhteydet</h1>
+                
+                <ul class="connection-list">
+                    <li th:each="connection : ${connections}">
+                        <a class="connection-list-link" th:text="${connection.name}" th:href="@{/account/}+${connection.handle}"></a>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+
+    </body>
+</html>
